@@ -192,6 +192,6 @@ void runTask5() {
     }
 
     if (!found) {
-        std::cout << "Студент с параметром \"" << searchQuery << "\" не найден.\n";
+        std::cout << "Студент с параметром \"" << searchQuery << "\" не найден.\n"; 
     }
 }
