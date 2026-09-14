@@ -98,17 +98,29 @@ void runTask3() {
 
 // Задание 4: Суммы строк и столбцов матрицы
 void runTask4() {
-    std::cout << "--- Задание 4: Суммы в двумерном массиве ---\n\n";
+    std::cout << "--- Задание 4: Суммы и ненулевые элементы в двумерном массиве ---\n\n";
+
     const int rows = 3;
     const int cols = 4;
 
-    std::vector<std::vector<int>> matrix = {
-        {1,  2,  3,  4},
-        {5,  6,  7,  8},
-        {9, 10, 11, 12}
-    };
+    
+    int** matrix = new int* [rows];
+    for (int i = 0; i < rows; ++i) {
+        matrix[i] = new int[cols];
+    }
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    
+    
 
-    std::cout << "Исходная матрица:\n";
+    // 2. Заполнение матрицы случайными числами
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            matrix[i][j] = -10 + std::rand() % 21;
+        }
+    }
+
+    // 3. Вывод матрицы на экран
+    std::cout << "Сгенерированная матрица:\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             std::cout << matrix[i][j] << "\t";
@@ -116,6 +128,18 @@ void runTask4() {
         std::cout << "\n";
     }
 
+    // 4. Подсчёт количества ненулевых элементов
+    int nonZeroCount = 0;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (matrix[i][j] != 0) {
+                nonZeroCount++;
+            }
+        }
+    }
+    std::cout << "\nКоличество ненулевых элементов: " << nonZeroCount << "\n";
+
+    // 5. Расчёт сумм по строкам
     std::cout << "\nСуммы по строкам:\n";
     for (int i = 0; i < rows; ++i) {
         int rowSum = 0;
@@ -125,6 +149,7 @@ void runTask4() {
         std::cout << "Строка " << i << ": " << rowSum << "\n";
     }
 
+    // 6. Расчёт сумм по столбцам
     std::cout << "\nСуммы по столбцам:\n";
     for (int j = 0; j < cols; ++j) {
         int colSum = 0;
@@ -133,6 +158,12 @@ void runTask4() {
         }
         std::cout << "Столбец " << j << ": " << colSum << "\n";
     }
+
+    // 7. Освобождение выделенной памяти
+    for (int i = 0; i < rows; ++i) {
+        delete[] matrix[i]; // Освобождаем каждую строку
+    }
+    delete[] matrix; // Освобождаем массив указателей
 }
 
 
